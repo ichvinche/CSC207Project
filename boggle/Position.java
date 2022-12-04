@@ -30,21 +30,27 @@ public class Position {
      *
      * @param row the int value of the row we want to set.
      */
-    public void setRow(int row) { this.row = row; }
+    public void setRow(int row) {
+        this.row = row;
+    }
 
     /**
      * Set the column value.
      *
      * @param col the int value of the column we want to set.
      */
-    public void setCol(int col) { this.col = col; }
+    public void setCol(int col) {
+        this.col = col;
+    }
 
     /**
      * Get the row for a current position.
      *
      * @return int the row value of the position.
      */
-    public int getRow() { return this.row; }
+    public int getRow() {
+        return this.row;
+    }
 
     /**
      * Get the col for a current position.
