@@ -12,6 +12,21 @@ public class BoggleGame {
     private BoggleStats gameStats;
 
     /**
+     * dice used to randomize letter assignments for a small grid.
+     */
+    private final String[] dice_small_grid =
+            {"AAEEGN", "ABBJOO", "ACHOPS", "AFFKPS", "AOOTTW", "CIMOTU", "DEILRX", "DELRVY",
+                    "DISTTY", "EEGHNW", "EEINSU", "EHRTVW", "EIOSST", "ELRTTY", "HIMNQU", "HLNNRZ"};
+
+    /**
+     * dice used to randomize letter assignments for a big grid.
+     */
+    private final String[] dice_big_grid =
+            {"AAAFRS", "AAEEEE", "AAFIRS", "ADENNN", "AEEEEM", "AEEGMU", "AEGMNN", "AFIRSY",
+                    "BJKQXZ", "CCNSTW", "CEIILT", "CEILPT", "CEIPST", "DDLNOR", "DDHNOT", "DHHLOR",
+                    "DHLNOR", "EIIITT", "EMOTTT", "ENSSSU", "FIPRSY", "GORRVW", "HIPRRY", "NOOTUW", "OOOTTU"};
+
+    /**
      * BoggleGame constructor.
      */
     public BoggleGame() {
@@ -28,7 +43,27 @@ public class BoggleGame {
      * @return String A string of random letters that depends on the size of the boggle grid.
      */
     private String randomizeLetters(int size) {
-        throw new UnsupportedOperationException();
+        StringBuilder boggleLetters = new StringBuilder();
+        Random rand = new Random();
+        if (size == 4) {
+            List<String> copyDice = new ArrayList<String>(List.of(dice_small_grid.clone()));
+            Collections.shuffle(copyDice);
+            for (String s: copyDice) {
+                int randomInt = rand.nextInt(s.length() - 1);
+                boggleLetters.append(s.charAt(randomInt));
+            }
+            return boggleLetters.toString();
+        } else if (size == 5) {
+            List<String> copyDice = new ArrayList<String>(List.of(dice_big_grid.clone()));
+            Collections.shuffle(copyDice);
+            for (String s: copyDice) {
+                int randomInt = rand.nextInt(s.length() - 1);
+                boggleLetters.append(s.charAt(randomInt));
+            }
+            return boggleLetters.toString();
+        } else {
+            return null;
+        }
     }
 
     /**

@@ -1,4 +1,4 @@
-package Iterator;
+package iterator;
 
 /**
  * ConcreteIterable class that implements Iterable interface.
