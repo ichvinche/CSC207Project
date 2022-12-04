@@ -21,7 +21,8 @@ public class BoggleGrid {
      * @param size The size of the BoggleGrid we want to initialize.
      */
     public BoggleGrid(int size) {
-        throw new UnsupportedOperationException();
+       this.size = size;
+       board = new char[size][size];
     }
 
     /**
@@ -31,20 +32,44 @@ public class BoggleGrid {
      * @param letters A string of letters, one for each letter.
      */
     public void intializeBoard(String letters) {
-        throw new UnsupportedOperationException();
+        int bound = letters.length();
+        int currIndex = 0;
+        char filler = " ".charAt(0);
+
+        for (int i = 0; i < numRows(); i++) {
+            for (int j = 0; j < numCols(); j++) {
+                if (currIndex >= bound) {
+                    board[i][j] = filler;
+                } else {
+                    board[i][j] = letters.charAt(currIndex);
+                }
+                currIndex++;
+            }
+        }
     }
 
     /**
      * @return int The number of rows that are on the board.
      */
     public int numRows() {
-        throw new UnsupportedOperationException();
+        return size;
     }
 
     /**
      * @return int The number of columns that are on the board.
      */
     public int numCols() {
-        throw new UnsupportedOperationException();
+        return size;
+    }
+
+    /**
+     * The specific char for a pair of (row, col).
+     *
+     * @param row the row value of the char.
+     * @param col the col value of the char.
+     * @return char the character at a given grid position.
+     */
+    public char getCharAt(int row, int col) {
+        return board[row][col];
     }
 }

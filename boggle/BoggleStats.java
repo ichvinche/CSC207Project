@@ -2,6 +2,7 @@ package boggle;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.Objects;
 
 /**
  * The BoggleStats class for Phase 2 of CSC207 Group Project, Fall 2022.
@@ -70,7 +71,15 @@ public class BoggleStats {
      * BoggleStats constructor.
      */
     public BoggleStats() {
-        throw new UnsupportedOperationException();
+        round = 0;
+        pScore = 0;
+        cScore = 0;
+        pScoreTotal = 0;
+        cScoreTotal = 0;
+        pAverageWords = 0;
+        cAverageWords = 0;
+        playerWords = new HashSet<String>();
+        computerWords = new HashSet<String>();
     }
 
     /**
@@ -81,7 +90,13 @@ public class BoggleStats {
      * @param player The player type who guessed the word and whose score will be changed.
      */
     public void addWord(String word, Player player) {
-        throw new UnsupportedOperationException();
+        if (Objects.equals(player.player, "Human")) {
+            playerWords.add(word.toUpperCase());
+            pScore += word.length() + 4 - 1;
+        } else if (Objects.equals(player.player, "Computer")) {
+            computerWords.add(word);
+            cScore += word.length() - 4 + 1;
+        }
     }
 
     /**
@@ -92,27 +107,39 @@ public class BoggleStats {
      * Lastly, the round counter should be incremented by 1.
      */
     public void endRound() {
-        throw new UnsupportedOperationException();
+        playerWords.clear();
+        computerWords.clear();
+        pScoreTotal += pScore;
+        cScoreTotal += cScore;
+        pScore = 0;
+        cScore = 0;
+        round++;
     }
 
     /**
+     *
+     *
      * @return int The words list for the human player.
      */
     public Set<String> getPlayerWords() {
-        throw new UnsupportedOperationException();
+        return playerWords;
     }
 
     /**
+     * The current round of the game.
+     *
      * @return int The total number of rounds played.
      */
     public int getRound() {
-        throw new UnsupportedOperationException();
+        return round;
     }
 
     /**
+     * The score of the player.
+     *
      * @return int The score of the human player.
      */
     public int getScore() {
-        throw new UnsupportedOperationException();
+        return pScore;
     }
 }
