@@ -1,9 +1,9 @@
-package iterator;
+package randomiterator;
 
 /**
  * ConcreteIterable class that implements Iterable interface.
  */
-public class ConcreteIterable implements Iterable {
+public class ConcreteListContainer implements ListContainer {
 
     /**
      * Returns an instance of the ConcreteIterator class.
@@ -12,10 +12,10 @@ public class ConcreteIterable implements Iterable {
      * @param start The starting index of the object iteration.
      * @param end The last index of the object we are iterating through.
      * @param steps The interval we are iterating through.
-     * @return A ConcreteIterator.
+     * @return A RandomIterator.
      */
     @Override
-    public Iterator iterator(String[] collection, int start, int end, int steps) {
-        return new ConcreteIterator(collection, start, end, steps);
+    public RandomIterator iterator(String[] collection, int start, int end, int steps) {
+        return new ConcreteRandomIterator(collection, start, end, steps);
     }
 }

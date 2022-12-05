@@ -16,6 +16,14 @@ public class Position {
 
     /**
      * Position constructor.
+     */
+    public Position() {
+        this.row = 0;
+        this.col = 0;
+    }
+
+    /**
+     * Position constructor.
      *
      * @param row The row value of the position.
      * @param col The col value of the position.

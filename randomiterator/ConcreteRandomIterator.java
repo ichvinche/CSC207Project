@@ -1,10 +1,9 @@
-package iterator;
-
+package randomiterator;
 
 /**
  * ConcreteIterator class that implements Iterator interface.
  */
-public class ConcreteIterator implements Iterator {
+public class ConcreteRandomIterator implements RandomIterator {
 
     /**
      * A string array we will iterate through.
@@ -30,7 +29,7 @@ public class ConcreteIterator implements Iterator {
      * @param iStart The starting index of the iteration.
      * @param nSteps The interval we are iterating through.
      */
-    public ConcreteIterator(String[] sCollection, int iStart, int iEnd, int nSteps) {
+    public ConcreteRandomIterator(String[] sCollection, int iStart, int iEnd, int nSteps) {
         collection = sCollection;
         start = iStart;
         steps = nSteps;
@@ -53,7 +52,7 @@ public class ConcreteIterator implements Iterator {
      * @return Returns the value of the object we just iterated to.
      */
     @Override
-    public Object next() {
+    public String next() {
         if (hasNext()) {
             String object = collection[start];
             start += steps;

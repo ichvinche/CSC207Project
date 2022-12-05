@@ -1,9 +1,9 @@
-package iterator;
+package randomiterator;
 
 /**
  * Iterable interface.
  */
-public interface Iterable {
+public interface ListContainer {
 
     /**
      * Returns an instance of the iterator class.
@@ -12,7 +12,7 @@ public interface Iterable {
      * @param start The index we are starting at when we iterate through the collection of objects.
      * @param end The last index of the object we are iterating.
      * @param steps The interval we are iterating the collection through.
-     * @return An iterator.
+     * @return A RandomIterator.
      */
-    public Iterator iterator(String[] collection, int start, int end, int steps);
+    RandomIterator iterator(String[] collection, int start, int end, int steps);
 }
