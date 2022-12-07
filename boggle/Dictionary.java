@@ -1,5 +1,10 @@
 package boggle;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Objects;
 import java.util.TreeSet;
 
 /**
@@ -17,7 +22,26 @@ public class Dictionary {
      * @param filename The file containing a list of all the legal words.
      */
     public Dictionary(String filename) {
-        throw new UnsupportedOperationException();
+        String line = "";
+        int wordcount = 0;
+        this.legalWords = new TreeSet<String>();
+        try
+        {
+            BufferedReader br = new BufferedReader(new FileReader(filename));
+            while ((line = br.readLine()) != null)
+            {
+                if (line.strip().length() > 0) {
+                    legalWords.add(line.strip());
+                    wordcount++;
+                }
+            }
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+        System.out.println("Initialized " + wordcount + " words in the Dictionary.");
     }
 
     /**
@@ -27,7 +51,13 @@ public class Dictionary {
      * @return boolean Indicates whether the word is in the dictionary or not.
      */
     public boolean containsWord(String word) {
-        throw new UnsupportedOperationException();
+        String lowerCaseWord = word.toLowerCase();
+        for (String s: this.legalWords) {
+            if (Objects.equals(s, lowerCaseWord)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -37,6 +67,12 @@ public class Dictionary {
      * @return boolean Indicates whether the string is a prefix or not
      */
     public boolean isPrefix(String str) {
-        throw new UnsupportedOperationException();
+        String lowerCaseString = str.toLowerCase();
+        for (String s: this.legalWords) {
+            if (s.startsWith(lowerCaseString)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
