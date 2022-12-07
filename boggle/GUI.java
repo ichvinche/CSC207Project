@@ -1,4 +1,8 @@
 package boggle;
+import Strategy.Strategy;
+import Strategy.Context;
+import Strategy.EasyGameStrategy;
+import Strategy.HardGameStrategy;
 import State.Context;
 import State.Settings;
 import State.*;
@@ -25,49 +29,76 @@ import javafx.scene.text.Font;
 import javafx.util.Duration;
 import javafx.scene.layout.GridPane;
 
+/**
+ * The Boggle game GUI.
+ */
 public class GUI {
-
-    public Stage window;
-
+    /**
+     * The window for the GUI stage.
+     */
+    Stage window;
+    /**
+     * All GUI labels.
+     */
     Label scoreLabel = new Label("");
     Label words = new Label("");
-
     Label  words1 = new Label("");
-
     Label scoreLabel1 = new Label("");
-
     Label prefixLabel1 = new Label("");
-
     Label prefixLabel = new Label("");
-
+    /**
+     * Variable for the GUI scene choice.
+     */
     Boolean scene_choice;
-
+    /**
+     * The BoggleGame.
+     */
     public BoggleGame game;
     Context ctx;
-
+    /**
+     * All GUI text textfield attributes.
+     */
     TextField text = new TextField();
-
     TextField text1 = new TextField();
-
+    /**
+     * All GUI prefix textfield attributes.
+     */
     TextField prefix = new TextField();
     TextField prefix2 = new TextField();
-
-    public Button newButton, endroundButton, startButton, stopButton, helpButton, size4Button, size5Button, SettingsButton,
-            helpButton1, SettingsButton1, HintButton, submitButton, startButton2, stopButton2, newButton2,
-            endroundButton2, SettingsButton2, helpButton2, submitButton2, HintButton2, PrefixNumButton1,
+    /**
+     * Check to see if the game is on easy or not.
+     */
+    Boolean easy;
+    /**
+     * All GUI buttons.
+     */
+    public Button newButton, endroundButton, startButton, stopButton, helpButton, size4Button, size5Button,
+            SettingsButton, helpButton1, SettingsButton1, HintButton, submitButton, startButton2, stopButton2,
+            newButton2, endroundButton2, SettingsButton2, helpButton2, submitButton2, HintButton2, PrefixNumButton1,
             PrefixNumButton2;
 
-
-
+    /**
+     * Different GUI scenes.
+     */
     public Scene scene1,scene2, scene3;
 
-
+    /**
+     * GUI Constructor.
+     *
+     * @param stage The GUI stage.
+     */
     public GUI(Stage stage){
         window = stage;
         initUI();
+        this.easy = null;
     }
+
+    /**
+     * Draw the scene.
+     */
     public void initUI() {
         window.setTitle("Boggle Game");
+
 
         //In-Game menu
 
@@ -106,6 +137,8 @@ public class GUI {
         submitButton.setPrefSize(150, 50);
         submitButton.setFont(new Font(12));
         submitButton.setStyle("-fx-background-color: #17871b; -fx-text-fill: white;");
+
+
 
         //Game menu features
         SettingsButton = new Button("Settings");
@@ -224,21 +257,22 @@ public class GUI {
 
 
         RadioButton DifficultyButtonE2 = new RadioButton("Easy");
-        DifficultyButtonE.setToggleGroup(toggleGroup);
-        DifficultyButtonE.setSelected(true);
-        DifficultyButtonE.setUserData(Color.BLACK);
-        DifficultyButtonE.setFont(new Font(16));
-        DifficultyButtonE.setStyle("-fx-text-fill: black");
+        DifficultyButtonE2.setToggleGroup(toggleGroup);
+        DifficultyButtonE2.setSelected(true);
+        DifficultyButtonE2.setUserData(Color.BLACK);
+        DifficultyButtonE2.setFont(new Font(16));
+        DifficultyButtonE2.setStyle("-fx-text-fill: black");
 
         RadioButton DifficultyButtonH2 = new RadioButton("Hard");
-        DifficultyButtonH.setToggleGroup(toggleGroup);
-        DifficultyButtonH.setUserData(Color.BLACK);
-        DifficultyButtonH.setFont(new Font(16));
-        DifficultyButtonH.setStyle("-fx-text-fill: black");
+        DifficultyButtonH2.setToggleGroup(toggleGroup);
+        DifficultyButtonH2.setUserData(Color.BLACK);
+        DifficultyButtonH2.setFont(new Font(16));
+        DifficultyButtonH2.setStyle("-fx-text-fill: black");
 
         //Scene 1 - Main Menu
         Label name = new Label();
         name.setText("Boggle Game");
+        name.setFont(new Font(40));
         VBox layout1 = new VBox();
         layout1.setPadding(new Insets(20, 20, 20, 20));
         layout1.setAlignment(Pos.CENTER);
@@ -286,7 +320,6 @@ public class GUI {
         // new button: creates new game in same size scene 1
         newButton.setOnAction(e -> {
             game = new BoggleGame(true);
-
             BorderPane layout2 = new BorderPane();
             layout2.setTop(top);
             scoreLabel1.setText("Score is: 0");
@@ -298,11 +331,13 @@ public class GUI {
             pane1.setPadding(new Insets(10));
             pane1.setHgap(10);
             pane1.setVgap(10);
+            
             //Initialize the context
             ctx = new Context(this, game, pane1);
             State newState = SmallGridState.instance();
             ctx.setState(newState);
             newState.Update(ctx);
+            
             BoggleGrid grid_check1 = game.getgrid();
             for (int row = 0; row < 4; row++) {
                 for (int col = 0; col < 4; col++) {
@@ -322,7 +357,6 @@ public class GUI {
 
         newButton2.setOnAction(e -> {
             game = new BoggleGame(false);
-
             BorderPane layout3 = new BorderPane();
             layout3.setTop(top1);
             scoreLabel1.setText("Score is: 0");
@@ -334,11 +368,13 @@ public class GUI {
             pane1.setPadding(new Insets(10));
             pane1.setHgap(10);
             pane1.setVgap(10);
+            
             //Initialize the context
             ctx = new Context(this, game, pane1);
-            State newState = LargeGridState.instance();
+            State newState = SmallGridState.instance();
             ctx.setState(newState);
             newState.Update(ctx);
+            
             BoggleGrid grid_check1 = game.getgrid();
             for (int row = 0; row < 5; row++) {
                 for (int col = 0; col < 5; col++) {
@@ -374,7 +410,7 @@ public class GUI {
             game.endround();
             BorderPane layout2 = new BorderPane();
             layout2.setTop(top);
-            scoreLabel1.setText("Score is: 0");
+            scoreLabel.setText("Score is: 0");
             layout2.setLeft(side);
             layout2.setBottom(bot);
             // grid layout
@@ -399,14 +435,21 @@ public class GUI {
         // submit button: gets text and searches dictionary
         submitButton.setOnAction(e -> {
             String Userword = text.getText();
-            game.addword(Userword);
-
+            if (!easy && Userword.length() >= 5) {
+                game.addword(Userword);
+            } else if (easy) {
+                game.addword(Userword);
+            }
             text.clear();
             updateScore();
         });
         submitButton2.setOnAction(e -> {
             String Userword = text.getText();
-            game.addword(Userword);
+            if (!easy && Userword.length() >= 5) {
+                game.addword(Userword);
+            } else if (easy) {
+                game.addword(Userword);
+            }
             text.clear();
             updateScore1();
 
@@ -424,6 +467,7 @@ public class GUI {
             pane1.setPadding(new Insets(10));
             pane1.setHgap(10);
             pane1.setVgap(10);
+
             BoggleGrid grid_check1 = game.getgrid();
             for (int row = 0; row < 5; row++) {
                 for (int col = 0; col < 5; col++) {
@@ -448,13 +492,35 @@ public class GUI {
 
 
         startButton.setOnAction(e->{
+            if (easy){
+                Strategy strat = new EasyGameStrategy();
+                Context cont = new Context(strat);
+                game.context = cont;
+            }
+            else{
+                Strategy strat = new HardGameStrategy();
+                Context cont = new Context(strat);
+                game.context = cont;
+            }
             game.playGame();
+
             game.playRound();
         });
 
 
         startButton2.setOnAction(e-> {
+            if (easy){
+                Strategy strat = new EasyGameStrategy();
+                Context cont = new Context(strat);
+                game.context = cont;
+            }
+            else{
+                Strategy strat = new HardGameStrategy();
+                Context cont = new Context(strat);
+                game.context = cont;
+            }
             game.playGame();
+
             game.playRound();
         });
 
@@ -463,7 +529,6 @@ public class GUI {
         size4Button.setOnAction(e -> {
             scene_choice = true;
             game = new BoggleGame(true);
-
             //Scene 2:
             BorderPane layout2 = new BorderPane();
             layout2.setTop(top);
@@ -477,6 +542,7 @@ public class GUI {
             pane.setPadding(new Insets(10));
             pane.setHgap(10);
             pane.setVgap(10);
+
             //initialize context and state
             ctx = new Context(this, game, pane);
             State newState = SmallGridState.instance();
@@ -502,7 +568,6 @@ public class GUI {
         size5Button.setOnAction(e -> {
             scene_choice = false;
             game = new BoggleGame(false);
-
             //Scene 3:
             BorderPane layout3 = new BorderPane();
             layout3.setTop(top1);
@@ -511,17 +576,19 @@ public class GUI {
             layout3.setBottom(bot1);
 
             // grid layout
+
             GridPane pane1 = new GridPane();
             pane1.setAlignment(Pos.CENTER);
             pane1.setPadding(new Insets(10));
             pane1.setHgap(10);
             pane1.setVgap(10);
-
-            //Initialize the context and state
-            ctx = new Context(this, game, pane1);
-            State newState = LargeGridState.instance();
+            
+            //initialize context and state
+            ctx = new Context(this, game, pane);
+            State newState = SmallGridState.instance();
             ctx.setState(newState);
             newState.Update(ctx);
+
             BoggleGrid grid_check1 = game.getgrid();
             for (int row = 0; row < 5; row++) {
                 for (int col = 0; col < 5; col++) {
@@ -541,55 +608,89 @@ public class GUI {
         // for 4x4 Grid(scene2)
         PrefixNumButton1.setOnAction(e -> {
             String prfix = prefix.getText();
-
-            updateNumPrefix();
+            int num = game.CheckPrefix(prfix, game.allWords);
+            updateNumPrefix(num);
 
 
         });
         // for 4x4 Grid(scene2)
-        HintButton.setOnAction(e->{});
+        HintButton.setOnAction(e->{
+            String hint = game.RequestHint(game.allWords);
+            text.setText(hint);
+        });
         // for 4x4 Grid(scene2)
-        SettingsButton1.setOnAction(e->{Settings.displaySettings(ctx);});
+        SettingsButton1.setOnAction(e->{
+            SettingsButton1.setOnAction(e->{Settings.displaySettings(ctx);});
+        });
 
         // for 5x5 Grid(scene3)
         PrefixNumButton2.setOnAction(e -> {
             String prfix = prefix2.getText();
-
-            updateNumPrefix1();
+            int num = game.CheckPrefix(prfix, game.allWords);
+            updateNumPrefix1(num);
         });
         // for 5x5 Grid(scene3)
-        HintButton2.setOnAction(e->{});
+        HintButton2.setOnAction(e->{
+            String hint = game.RequestHint(game.allWords);
+            text.setText(hint);
+        });
         // for 5x5 Grid(scene3)
-        SettingsButton2.setOnAction(e->{Settings.displaySettings(ctx);});
+        SettingsButton2.setOnAction(e->{
+            SettingsButton2.setOnAction(e->{Settings.displaySettings(ctx);});
+        });
 
         // for main menu(scene1)
-        SettingsButton.setOnAction(e->{
-            Settings.displaySettings(ctx);
+        SettingsButton.setOnAction(e->{Settings.displaySettings(ctx);});
+
+        DifficultyButtonE.setOnAction(e -> {
+            easy = true;
+            game.easyGameMode();
         });
+
+        DifficultyButtonH.setOnAction(e -> {easy = false;});
+
+        DifficultyButtonE2.setOnAction(e -> {
+            easy = true;
+        });
+
+        DifficultyButtonH2.setOnAction(e -> {easy = false;});
 
         //Start Scene
         window.setScene(scene1);
         window.show();
-
-
-
     }
+
+    /**
+     * Update the score shown to the player.
+     */
     private void updateScore() {
         scoreLabel.setText("Score is:" + game.getscore());
 
     }
 
+    /**
+     * Update the second score label.
+     */
     private void updateScore1() {
         scoreLabel1.setText("Score is:" + game.getscore());
 
     }
 
-    private void updateNumPrefix() {
-        prefixLabel.setText("Number of words:" + "");
+    /**
+     * Update the number of prefixes on the screen for easy game mode.
+     *
+     * @param num The number we want to show on the screen.
+     */
+    private void updateNumPrefix(int num) {
+        prefixLabel.setText("Number of words:" + num);
     }
 
-    private void updateNumPrefix1() {
-        prefixLabel.setText("Number of words:" + "");
+    /**
+     * Update the number of prefixes on the screen for hard game mode.
+     * @param num The number we want to show on the screen.
+     */
+    private void updateNumPrefix1(int num) {
+        prefixLabel.setText("Number of words:" + num);
     }
 
 
