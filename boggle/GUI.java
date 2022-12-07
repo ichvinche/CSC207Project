@@ -3,6 +3,10 @@ import Strategy.Strategy;
 import Strategy.Context;
 import Strategy.EasyGameStrategy;
 import Strategy.HardGameStrategy;
+import State.StateContext;
+import State.Settings;
+import State.*;
+import State.StartState;
 import javafx.application.Application;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
@@ -49,7 +53,8 @@ public class GUI {
     /**
      * The BoggleGame.
      */
-    BoggleGame game;
+    public BoggleGame game;
+    StateContext ctx;
     /**
      * All GUI text textfield attributes.
      */
@@ -67,15 +72,15 @@ public class GUI {
     /**
      * All GUI buttons.
      */
-    Button newButton, endroundButton, startButton, stopButton, helpButton, size4Button, size5Button, SettingsButton,
-            helpButton1, SettingsButton1, HintButton, submitButton, startButton2, stopButton2, newButton2,
-            endroundButton2, SettingsButton2, helpButton2, submitButton2, HintButton2, PrefixNumButton1,
+    public Button newButton, endroundButton, startButton, stopButton, helpButton, size4Button, size5Button,
+            SettingsButton, helpButton1, SettingsButton1, HintButton, submitButton, startButton2, stopButton2,
+            newButton2, endroundButton2, SettingsButton2, helpButton2, submitButton2, HintButton2, PrefixNumButton1,
             PrefixNumButton2;
 
     /**
      * Different GUI scenes.
      */
-    Scene scene1,scene2, scene3;
+    public Scene scene1,scene2, scene3;
 
     /**
      * GUI Constructor.
@@ -307,6 +312,9 @@ public class GUI {
         text1.setPromptText("Word");
         HBox bot1 = new HBox(8,words1, text1, submitButton2, HintButton2);
 
+        ctx = new StateContext(this, game, null);
+        ctx.getState().Update(ctx);
+
         //actions
 
         // new button: creates new game in same size scene 1
@@ -323,6 +331,13 @@ public class GUI {
             pane1.setPadding(new Insets(10));
             pane1.setHgap(10);
             pane1.setVgap(10);
+
+            //Initialize the context
+            ctx = new StateContext(this, game, pane1);
+            State newState = SmallGridState.instance();
+            ctx.setState(newState);
+            newState.Update(ctx);
+
             BoggleGrid grid_check1 = game.getgrid();
             for (int row = 0; row < 4; row++) {
                 for (int col = 0; col < 4; col++) {
@@ -353,6 +368,13 @@ public class GUI {
             pane1.setPadding(new Insets(10));
             pane1.setHgap(10);
             pane1.setVgap(10);
+
+            //Initialize the context
+            ctx = new StateContext(this, game, pane1);
+            State newState = SmallGridState.instance();
+            ctx.setState(newState);
+            newState.Update(ctx);
+
             BoggleGrid grid_check1 = game.getgrid();
             for (int row = 0; row < 5; row++) {
                 for (int col = 0; col < 5; col++) {
@@ -371,10 +393,16 @@ public class GUI {
         stopButton.setOnAction(e -> {
             game.EndGame();
             window.setScene(scene1);
+
+            //change current state to the menu
+            ctx.setState(StartState.instance());
         });
         stopButton2.setOnAction(e -> {
             game.EndGame();
             window.setScene(scene1);
+
+            //change current state to the menu
+            ctx.setState(StartState.instance());
         });
 
         // endroundbutton: ends round lets computer play then starts another round
@@ -439,6 +467,7 @@ public class GUI {
             pane1.setPadding(new Insets(10));
             pane1.setHgap(10);
             pane1.setVgap(10);
+
             BoggleGrid grid_check1 = game.getgrid();
             for (int row = 0; row < 5; row++) {
                 for (int col = 0; col < 5; col++) {
@@ -513,6 +542,13 @@ public class GUI {
             pane.setPadding(new Insets(10));
             pane.setHgap(10);
             pane.setVgap(10);
+
+            //initialize context and state
+            ctx = new StateContext(this, game, pane);
+            State newState = SmallGridState.instance();
+            ctx.setState(newState);
+            newState.Update(ctx);
+
             BoggleGrid grid_check = game.getgrid();
             for (int row = 0; row < 4; row++) {
                 for (int col = 0; col < 4; col++) {
@@ -538,12 +574,21 @@ public class GUI {
             scoreLabel1.setText("Score is: 0");
             layout3.setLeft(side1);
             layout3.setBottom(bot1);
+
             // grid layout
+
             GridPane pane1 = new GridPane();
             pane1.setAlignment(Pos.CENTER);
             pane1.setPadding(new Insets(10));
             pane1.setHgap(10);
             pane1.setVgap(10);
+
+            //initialize context and state
+            ctx = new StateContext(this, game, pane);
+            State newState = SmallGridState.instance();
+            ctx.setState(newState);
+            newState.Update(ctx);
+
             BoggleGrid grid_check1 = game.getgrid();
             for (int row = 0; row < 5; row++) {
                 for (int col = 0; col < 5; col++) {
@@ -574,7 +619,9 @@ public class GUI {
             text.setText(hint);
         });
         // for 4x4 Grid(scene2)
-        SettingsButton1.setOnAction(e->{});
+        SettingsButton1.setOnAction(e->{
+            SettingsButton1.setOnAction(e->{Settings.displaySettings(ctx);});
+        });
 
         // for 5x5 Grid(scene3)
         PrefixNumButton2.setOnAction(e -> {
@@ -588,10 +635,12 @@ public class GUI {
             text.setText(hint);
         });
         // for 5x5 Grid(scene3)
-        SettingsButton2.setOnAction(e->{});
+        SettingsButton2.setOnAction(e->{
+            SettingsButton2.setOnAction(e->{Settings.displaySettings(ctx);});
+        });
 
         // for main menu(scene1)
-        SettingsButton.setOnAction(e->{});
+        SettingsButton.setOnAction(e->{Settings.displaySettings(ctx);});
 
         DifficultyButtonE.setOnAction(e -> {
             easy = true;
