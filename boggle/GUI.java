@@ -444,13 +444,13 @@ public class GUI {
             updateScore();
         });
         submitButton2.setOnAction(e -> {
-            String Userword = text.getText();
+            String Userword = text1.getText();
             if (!easy && Userword.length() >= 5) {
                 game.addword(Userword);
             } else if (easy) {
                 game.addword(Userword);
             }
-            text.clear();
+            text1.clear();
             updateScore1();
 
         });
@@ -632,7 +632,7 @@ public class GUI {
         // for 5x5 Grid(scene3)
         HintButton2.setOnAction(e->{
             String hint = game.RequestHint(game.allWords);
-            text.setText(hint);
+            text1.setText(hint);
         });
         // for 5x5 Grid(scene3)
         SettingsButton2.setOnAction(e->{
