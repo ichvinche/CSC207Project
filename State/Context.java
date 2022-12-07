@@ -1,4 +1,7 @@
 package State;
+import boggle.BoggleGame;
+import boggle.GUI;
+import javafx.scene.layout.GridPane;
 
 /**
  * This is the Context class for the state design pattern.
@@ -7,12 +10,18 @@ public class Context {
     /**
      * This is the current state of the Boggle game.
      */
-    private State state;
+    public State state;
+    public GUI gui;
+    public BoggleGame game;
+    public GridPane pane;
     /*
      * Class constructor.
      */
-    public Context(){
+    public Context(GUI gui, BoggleGame game, GridPane pane){
         this.state = StartState.instance();
+        this.gui = gui;
+        this.game = game;
+        this.pane = pane;
     }
     /*
      * This Function gets the current state of the game as a State object.

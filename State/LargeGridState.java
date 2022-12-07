@@ -1,21 +1,25 @@
 package State;
 
+import boggle.BoggleGrid;
+import javafx.scene.control.Label;
+import javafx.scene.text.Font;
+
 /**
  * This is the EndState class which implements the State interface.
  * This class represents the current state of the Boggle game after the completion of a round.
  */
-public class EndState {
+public class LargeGridState implements State{
     /**
      * This is the current context for the Boggle game.
      */
-    private Context context;
+    public Context context;
 
     /*
      * This method returns a new instance of the EndState class.
      * @return EndState a new instance of EndState.
      */
-    public static EndState instance(){
-        return new EndState();
+    public static LargeGridState instance(){
+        return new LargeGridState();
     }
 
     /*
@@ -23,17 +27,16 @@ public class EndState {
      * @param size the new text size for the Boggle GUI.
      */
     public void textSize(int size){
-        // If text size is too large or small, System.out.println("Text size outside of boundaries.")
-        // else set text size of GUI to @param size.
-    }
-
-    /*
-     * Changes the Colour theme of the Boggle GUI according to user input.
-     */
-    public void changeColour(){
-        // Get a user input
-        // If user input is invalid, System.out.println("Input is invalid")
-        // else change colour theme based on user input.
+        context.pane.getChildren().clear();
+        BoggleGrid grid_check = context.game.getgrid();
+        for (int row = 0; row < 5; row++) {
+            for (int col = 0; col < 5; col++) {
+                Label Char = new Label();
+                Char.setText(Character.toString(grid_check.getCharAt(row, col)));
+                Char.setFont(new Font(size));
+                context.pane.add(Char, col, row);
+            }
+        }
     }
 
     /*
@@ -43,5 +46,6 @@ public class EndState {
      * @param context The current context for the Boggle game.
      */
     public void Update(Context context){
+        this.context = context;
     }
 }

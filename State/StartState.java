@@ -1,4 +1,5 @@
 package State;
+import javafx.scene.text.Font;
 
 /**
  * This is the StartState class which implements the State interface.
@@ -8,7 +9,7 @@ public class StartState implements State {
     /**
      * This is the current context for the Boggle game.
      */
-    private Context context;
+    public Context context;
 
     /*
      * This method returns a new instance of the StartState class.
@@ -18,22 +19,16 @@ public class StartState implements State {
         return new StartState();
     }
 
+
     /*
      * Changes the text size for the GUI according to user input.
      * @param size the new text size for the Boggle GUI.
      */
     public void textSize(int size){
-        // If text size is too large or small, System.out.println("Text size outside of boundaries.")
-        // else set text size of GUI to @param size.
-    }
-
-    /*
-     * Changes the Colour theme of the Boggle GUI according to user input from a selection of different colour themes.
-     */
-    public void changeColour(){
-        // Get a user input
-        // If user input is invalid, System.out.println("Input is invalid")
-        // else change colour theme based on user input.
+        context.gui.SettingsButton.setFont(new Font(size));
+        context.gui.helpButton.setFont(new Font(size));
+        context.gui.size4Button.setFont(new Font(size));
+        context.gui.size5Button.setFont(new Font(size));
     }
 
     /*
@@ -43,6 +38,6 @@ public class StartState implements State {
      * @param context The current context for the Boggle game.
      */
     public void Update(Context context){
+        this.context = context;
     }
-
 }

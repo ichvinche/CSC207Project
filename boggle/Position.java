@@ -1,40 +1,43 @@
 package boggle;
 
 /**
- * Position class for Phase 2 of CSC207 Group Project, Fall 2022.
+ * Class to hold Position information associated with a BoggleGrid
  */
 public class Position {
     /**
-     * the row value of the position.
+     * row
      */
     private int row;
-
     /**
-     * the column value of the position.
+     * column
      */
     private int col;
 
     /**
-     * Position constructor.
+     * A grid Position.
+     * Sets row and column to 0, by default
+     */
+    public Position() {
+        this.row = 0;
+        this.col = 0;
+    }
+
+    /**
+     * A grid Position.
      *
-     * @param row The row value of the position.
-     * @param col The col value of the position.
+     * @param row row
+     * @param col column
      */
     public Position(int row, int col) {
-        throw new UnsupportedOperationException();
+        this.row = row;
+        this.col = col;
     }
 
-    /**
-     * @return int The row integer value of the position.
+    /*
+     * Useful getter and setter method for class attributes
      */
-    public int getRow() {
-        throw new UnsupportedOperationException();
-    }
-
-    /**
-     * @return int The column integervalue of the position.
-     */
-    public int getCol() {
-        throw new UnsupportedOperationException();
-    }
+    public void setRow(int row) { this.row = row; }
+    public void setCol(int col) { this.col = col; }
+    public int getRow(int row) { return this.row; }
+    public int getCol(int col) { return this.col; }
 }
