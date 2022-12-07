@@ -245,6 +245,7 @@ public class GUI {
         //Scene 1 - Main Menu
         Label name = new Label();
         name.setText("Boggle Game");
+        name.setFont(new Font(40));
         VBox layout1 = new VBox();
         layout1.setPadding(new Insets(20, 20, 20, 20));
         layout1.setAlignment(Pos.CENTER);
@@ -359,7 +360,7 @@ public class GUI {
             game.endround();
             BorderPane layout2 = new BorderPane();
             layout2.setTop(top);
-            scoreLabel1.setText("Score is: 0");
+            scoreLabel.setText("Score is: 0");
             layout2.setLeft(side);
             layout2.setBottom(bot);
             // grid layout
