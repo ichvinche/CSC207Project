@@ -1,5 +1,5 @@
 package Strategy;
-
+import boggle.BoggleGame;
 import boggle.Position;
 
 import java.util.ArrayList;
@@ -23,8 +23,11 @@ public class EasyGameStrategy implements Strategy{
         Random random = new Random();
         int index = random.nextInt(all.size());
         String ele = all.get(index);
-        String hint = ele.substring(0, 3);
-        return hint;
+        while (BoggleGame.gameStats.getPlayerWords().contains(ele.toUpperCase())){
+            index = random.nextInt(all.size());
+            ele = all.get(index);
+        }
+        return ele;
     }
 
     /**
