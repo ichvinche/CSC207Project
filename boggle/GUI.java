@@ -584,7 +584,7 @@ public class GUI {
             pane1.setVgap(10);
 
             //initialize context and state
-            ctx = new StateContext(this, game, pane);
+            ctx = new StateContext(this, game, pane1);
             State newState = SmallGridState.instance();
             ctx.setState(newState);
             newState.Update(ctx);
@@ -620,7 +620,7 @@ public class GUI {
         });
         // for 4x4 Grid(scene2)
         SettingsButton1.setOnAction(e->{
-            SettingsButton1.setOnAction(e->{Settings.displaySettings(ctx);});
+                Settings.displaySettings(ctx);
         });
 
         // for 5x5 Grid(scene3)
@@ -636,7 +636,7 @@ public class GUI {
         });
         // for 5x5 Grid(scene3)
         SettingsButton2.setOnAction(e->{
-            SettingsButton2.setOnAction(e->{Settings.displaySettings(ctx);});
+            Settings.displaySettings(ctx);
         });
 
         // for main menu(scene1)
