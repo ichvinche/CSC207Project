@@ -6,8 +6,8 @@ import java.util.Objects;
 import java.util.Set;
 
 /**
- * The BoggleStats class for the first Assignment in CSC207, Fall 2022
- * The BoggleStats will contain statsitics related to game play Boggle
+ * The BoggleStats class for the Group Project in CSC207, Fall 2022
+ * The BoggleStats will contain statistics related to game play Boggle
  */
 public class BoggleStats {
 

@@ -29,6 +29,4 @@ public class Main extends Application {
     public void start(Stage primaryStage) {
         this.gui = new GUI(primaryStage);
     }
-
-
 }

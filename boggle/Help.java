@@ -4,10 +4,20 @@ import javafx.scene.*;
 import javafx.scene.layout.*;
 import javafx.scene.control.*;
 import javafx.geometry.*;
+
+/**
+ * Help class for the GUI.
+ */
 public class Help {
 
+    /**
+     * The BoggleGame.
+     */
     static BoggleGame game;
 
+    /**
+     * Display when the help button is clicked.
+     */
     public static void display() {
         game = new BoggleGame(true);
         Stage window = new Stage();

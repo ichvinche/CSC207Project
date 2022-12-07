@@ -7,11 +7,14 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.Random;
 
+/**
+ * HardGameStrategy that implements the Strategy interface.
+ */
 public class HardGameStrategy implements Strategy{
     /**
      * Return first 3 letters of a word
-     * @param allWords
-     * @return String
+     * @param allWords All legal words on the boggle grid.
+     * @return String The string we are returning to the player.
      */
     @Override
     public String RequestHint(Map<String, ArrayList<Position>> allWords) {
@@ -34,9 +37,9 @@ public class HardGameStrategy implements Strategy{
 
     /**
      * Return 0 as a prefix can not be requested in the hard mode.
-     * @param pre
-     * @param allWords
-     * @return
+     * @param pre The prefix we want to check.
+     * @param allWords All legal words on the boggle grid.
+     * @return int The number of words containing the prefix pre.
      */
     @Override
     public int CheckPrefix(String pre, Map<String, ArrayList<Position>> allWords) {

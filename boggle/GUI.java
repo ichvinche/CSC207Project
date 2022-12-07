@@ -25,50 +25,72 @@ import javafx.scene.text.Font;
 import javafx.util.Duration;
 import javafx.scene.layout.GridPane;
 
+/**
+ * The Boggle game GUI.
+ */
 public class GUI {
-
+    /**
+     * The window for the GUI stage.
+     */
     Stage window;
-
+    /**
+     * All GUI labels.
+     */
     Label scoreLabel = new Label("");
     Label words = new Label("");
-
     Label  words1 = new Label("");
-
     Label scoreLabel1 = new Label("");
-
     Label prefixLabel1 = new Label("");
-
     Label prefixLabel = new Label("");
-
+    /**
+     * Variable for the GUI scene choice.
+     */
     Boolean scene_choice;
-
+    /**
+     * The BoggleGame.
+     */
     BoggleGame game;
-
+    /**
+     * All GUI text textfield attributes.
+     */
     TextField text = new TextField();
-
     TextField text1 = new TextField();
-
+    /**
+     * All GUI prefix textfield attributes.
+     */
     TextField prefix = new TextField();
     TextField prefix2 = new TextField();
-
+    /**
+     * Check to see if the game is on easy or not.
+     */
     Boolean easy;
-
+    /**
+     * All GUI buttons.
+     */
     Button newButton, endroundButton, startButton, stopButton, helpButton, size4Button, size5Button, SettingsButton,
             helpButton1, SettingsButton1, HintButton, submitButton, startButton2, stopButton2, newButton2,
             endroundButton2, SettingsButton2, helpButton2, submitButton2, HintButton2, PrefixNumButton1,
             PrefixNumButton2;
 
-
-
+    /**
+     * Different GUI scenes.
+     */
     Scene scene1,scene2, scene3;
 
-
+    /**
+     * GUI Constructor.
+     *
+     * @param stage The GUI stage.
+     */
     public GUI(Stage stage){
         window = stage;
         initUI();
         this.easy = null;
     }
 
+    /**
+     * Draw the scene.
+     */
     public void initUI() {
         window.setTitle("Boggle Game");
 
@@ -573,6 +595,7 @@ public class GUI {
 
         DifficultyButtonE.setOnAction(e -> {
             easy = true;
+            game.easyGameMode();
         });
 
         DifficultyButtonH.setOnAction(e -> {easy = false;});
@@ -586,24 +609,37 @@ public class GUI {
         //Start Scene
         window.setScene(scene1);
         window.show();
-
-
-
     }
+
+    /**
+     * Update the score shown to the player.
+     */
     private void updateScore() {
         scoreLabel.setText("Score is:" + game.getscore());
 
     }
 
+    /**
+     * Update the second score label.
+     */
     private void updateScore1() {
         scoreLabel1.setText("Score is:" + game.getscore());
 
     }
 
+    /**
+     * Update the number of prefixes on the screen for easy game mode.
+     *
+     * @param num The number we want to show on the screen.
+     */
     private void updateNumPrefix(int num) {
         prefixLabel.setText("Number of words:" + num);
     }
 
+    /**
+     * Update the number of prefixes on the screen for hard game mode.
+     * @param num The number we want to show on the screen.
+     */
     private void updateNumPrefix1(int num) {
         prefixLabel.setText("Number of words:" + num);
     }
