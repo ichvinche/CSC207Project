@@ -19,7 +19,6 @@ public class StartState implements State {
         return new StartState();
     }
 
-
     /*
      * Changes the text size for the GUI according to user input.
      * @param size the new text size for the Boggle GUI.
